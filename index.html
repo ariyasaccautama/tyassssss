@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ariya ❤️ Tyas</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #ffb6c1, #ffe4e1);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      position: relative;
+      color: #fff;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-top: 2em;
+      color: #fff;
+    }
+
+    .message {
+      font-size: 1.5em;
+      max-width: 80%;
+      margin: 2em auto;
+      line-height: 1.8;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 1.5em;
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+    }
+
+    .message:hover::after {
+      content: "Artinya: Aku ingin selalu bersamamu, Tyas. Maukah kau jadi milikku?";
+      display: block;
+      font-size: 0.9em;
+      margin-top: 1em;
+      color: #fff;
+    }
+
+    .hearts {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 10s infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>💗 Ariya & Tyas 💗</h1>
+
+  <div class="message">
+    君の笑顔を見るたびに、心が暖かくなる。<br>
+    ずっとそばにいたいんだ。<br>
+    僕の恋人になってくれませんか？❤️
+  </div>
+
+  <div class="hearts" id="hearts"></div>
+
+  <audio autoplay loop>
+    <source src="https://vgmsite.com/soundtracks/keisya-jadi-kekasihku/stream.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    // Generate hearts
+    const heartContainer = document.getElementById("hearts");
+    for (let i = 0; i < 50; i++) {
+      let heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+      heart.style.opacity = Math.random();
+      heartContainer.appendChild(heart);
+    }
+  </script>
+</body>
+</html>
