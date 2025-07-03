@@ -3,92 +3,109 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ariya ❤️ Tyas</title>
+  <title>Ariya 🐱 Tyas</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(to bottom, #ffb6c1, #ffe4e1);
-      font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
-      position: relative;
-      color: #fff;
+      background: linear-gradient(to bottom, #fff1f4, #fff9e1);
+      font-family: 'Comic Sans MS', cursive;
+      overflow-x: hidden;
+      color: #333;
       text-align: center;
     }
 
     h1 {
-      font-size: 3em;
-      margin-top: 2em;
-      color: #fff;
+      font-size: 2.5em;
+      margin-top: 1em;
+      color: #ff69b4;
     }
 
     .message {
-      font-size: 1.5em;
+      font-size: 1.2em;
       max-width: 80%;
-      margin: 2em auto;
-      line-height: 1.8;
-      background: rgba(255, 255, 255, 0.2);
-      padding: 1.5em;
-      border-radius: 20px;
-      backdrop-filter: blur(5px);
+      margin: 1em auto;
+      padding: 1em;
+      background: #fffcef;
+      border: 2px dashed #ffaec9;
+      border-radius: 15px;
+      cursor: pointer;
     }
 
-    .message:hover::after {
-      content: "Artinya: Aku ingin selalu bersamamu, Tyas. Maukah kau jadi milikku?";
-      display: block;
+    .translation {
+      display: none;
+      margin-top: 0.5em;
       font-size: 0.9em;
-      margin-top: 1em;
-      color: #fff;
+      color: #666;
     }
 
-    .hearts {
+    .gallery {
+      margin-top: 2em;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1em;
+      min-height: 240px;
+    }
+
+    .gallery img {
+      width: 200px;
+      height: auto;
+      border-radius: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .sticker-zone, .reaction {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
       pointer-events: none;
-      overflow: hidden;
     }
 
-    .heart {
+    .sticker {
+      width: 60px;
+      height: 60px;
+      background-size: contain;
+      background-repeat: no-repeat;
       position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      transform: rotate(45deg);
-      animation: float 10s infinite;
+      animation: pop 1s ease-out;
     }
 
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      border-radius: 50%;
+    .reaction {
+      font-size: 2em;
+      animation: pop 1s ease-out;
     }
 
-    .heart::before {
-      top: -10px;
-      left: 0;
+    @keyframes pop {
+      0% { transform: scale(0); opacity: 1; }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(0.8); opacity: 0; }
     }
 
-    .heart::after {
-      left: -10px;
-      top: 0;
+    .btn {
+      margin-top: 1em;
+      padding: 10px 20px;
+      border: none;
+      background-color: #ffb6c1;
+      border-radius: 20px;
+      font-size: 1em;
+      cursor: pointer;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
     }
 
-    @keyframes float {
-      0% {
-        transform: translateY(0) rotate(45deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) rotate(45deg);
-        opacity: 0;
-      }
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 3em;
+      font-size: 0.9em;
+      color: #888;
     }
 
     audio {
@@ -97,32 +114,105 @@
   </style>
 </head>
 <body>
-  <h1>💗 Ariya & Tyas 💗</h1>
+  <h1>😺 Hallo dek Tyas 😺</h1>
+  <h3> wkwkwkwkwk </h3>
 
-  <div class="message">
-    君の笑顔を見るたびに、心が暖かくなる。<br>
-    ずっとそばにいたいんだ。<br>
-    僕の恋人になってくれませんか？❤️
+  <div class="message" id="message">
+    君の声を思い出すだけで、ちょっと元気出るんだ。<br>
+    （Klik untuk lihat artinya）<br>
+    <div class="translation" id="translation">
+      "Cuma nginget suara kamu aja, rasanya bisa semangat lagi."
+    </div>
   </div>
 
-  <div class="hearts" id="hearts"></div>
+  <button class="btn" id="meowBtn">🐾 Meow Me!</button>
 
-  <audio autoplay loop>
-    <source src="https://vgmsite.com/soundtracks/keisya-jadi-kekasihku/stream.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
+  <div class="gallery" id="galleryZone"></div>
+
+  <div class="sticker-zone" id="stickerZone"></div>
+
+  <!-- Suara Miaw dari Vocaroo -->
+  <audio id="meowSound">
+    <source src="https://media.vocaroo.com/mp3/1dzvLaAro0eH" type="audio/mpeg" />
   </audio>
 
+  <footer>Dibuat dengan 🐾 oleh Ariya untuk Tyas</footer>
+
   <script>
-    // Generate hearts
-    const heartContainer = document.getElementById("hearts");
-    for (let i = 0; i < 50; i++) {
-      let heart = document.createElement("div");
-      heart.className = "heart";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (5 + Math.random() * 5) + "s";
-      heart.style.opacity = Math.random();
-      heartContainer.appendChild(heart);
+    const message = document.getElementById("message");
+    const translation = document.getElementById("translation");
+    const galleryZone = document.getElementById("galleryZone");
+    const meowBtn = document.getElementById("meowBtn");
+    const meowSound = document.getElementById("meowSound");
+    const stickerZone = document.getElementById("stickerZone");
+
+    const bgMusic = new Audio("https://media.vocaroo.com/mp3/1ok5vKJMi7ae");
+    bgMusic.loop = true;
+
+    const tyasPhotos = [
+      "https://i.ibb.co/G3RV1cFH/Screenshot-41.png",
+      "https://i.ibb.co/S4YSr7md/Screenshot-42.png",
+      "https://i.ibb.co/S7GD8Kfp/Screenshot-43.png",
+      "https://i.ibb.co/tySfQxn/Screenshot-44.png"
+    ];
+
+    const catStickers = [
+      "https://cdn-icons-png.flaticon.com/512/616/616408.png",
+      "https://cdn-icons-png.flaticon.com/512/616/616430.png",
+      "https://cdn-icons-png.flaticon.com/512/616/616438.png",
+      "https://cdn-icons-png.flaticon.com/512/616/616418.png"
+    ];
+
+    message.addEventListener("click", () => {
+      translation.style.display = translation.style.display === "none" ? "block" : "none";
+    });
+
+    document.body.addEventListener("click", (e) => {
+      meowSound.currentTime = 0;
+      meowSound.play();
+
+      const emoji = document.createElement("div");
+      emoji.className = "reaction";
+      emoji.innerText = ["💖", "😻", "✨", "🐱", "🎀"][Math.floor(Math.random() * 5)];
+      emoji.style.left = `${e.clientX - 10}px`;
+      emoji.style.top = `${e.clientY - 10}px`;
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 1000);
+    });
+
+    function shuffleArray(arr) {
+      return arr.sort(() => 0.5 - Math.random());
     }
+
+    let firstClick = true;
+
+    meowBtn.addEventListener("click", () => {
+      if (firstClick) {
+        bgMusic.play().catch((e) => {
+          console.warn("Autoplay blocked:", e);
+        });
+        firstClick = false;
+      }
+
+      const sticker = document.createElement("div");
+      sticker.className = "sticker";
+      sticker.style.backgroundImage = `url('${catStickers[Math.floor(Math.random() * catStickers.length)]}')`;
+      sticker.style.left = Math.random() * (window.innerWidth - 60) + "px";
+      sticker.style.top = Math.random() * (window.innerHeight - 60) + "px";
+      stickerZone.appendChild(sticker);
+      setTimeout(() => sticker.remove(), 3000);
+
+      const shuffled = shuffleArray(tyasPhotos.slice());
+      const howMany = Math.floor(Math.random() * 3) + 1;
+      const selected = shuffled.slice(0, howMany);
+      galleryZone.innerHTML = '';
+      selected.forEach(src => {
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = "Tyas 💕";
+        galleryZone.appendChild(img);
+      });
+    });
   </script>
 </body>
 </html>
